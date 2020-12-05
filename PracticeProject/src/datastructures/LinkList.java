@@ -43,16 +43,18 @@ public class LinkList {
 //Adding node at indexth position. Therefore index = 1 means at the first location
 	public void addByIndex(int index, String insertValue) {
 		if (index >= (getSize() + 2)) {
-			throw new IndexOutOfBoundsException("The index value is beyond this LinkList");
-		} else if (index > 1) {
+			throw new IndexOutOfBoundsException("The index value \""+ index +"\" is invalid");
+		} else if (index < 1) {
+			throw new IndexOutOfBoundsException("The index value \""+ index +"\" is beyond this LinkList");
+		} else if (index == 1) {
 			addFront(insertValue);
 		} else if (index == size + 1) {
 			addLast(insertValue);
 		} else {
 			Node pointer = head;
 			int count = 1;
-//To Traverse through the LinkList until it reaches the node before the intended index
-			while (count < index) {
+			//To Traverse through the LinkList until it reaches the node before the intended index
+			while (count < index-1) {
 				pointer = pointer.next;
 				count++;
 			}
@@ -100,15 +102,17 @@ public class LinkList {
 	public void removeByIndex(int index) {
 		if (index >= (getSize() + 2)) {
 			throw new IndexOutOfBoundsException("The index value is beyond this LinkList");
-		} else if (index > 1) {
+		} else if (index < 1) {
+			throw new IndexOutOfBoundsException("The index value \""+ index +"\" is beyond this LinkList");
+		} else if (index == 1) {
 			removeFirst();
 		} else if (index == size + 1) {
 			removeLast();
 		} else {
 			Node pointer = head;
 			int count = 1;
-//To Traverse through the LinkList until it reaches the node before the intended index
-			while (count < index) {
+			//To Traverse through the LinkList until it reaches the node before the intended index
+			while (count < index-1) {
 				pointer = pointer.next;
 				count++;
 			}
@@ -161,7 +165,7 @@ public class LinkList {
 		Node pointer = head;
 		int count = 1;
 //To Traverse through the LinkList until it reaches the intended index
-		while (count == index) {
+		while (count < index) {
 			pointer = pointer.next;
 			count++;
 		}
@@ -172,14 +176,16 @@ public class LinkList {
 		StringBuilder output = new StringBuilder();
 		Node pointer = head;
 		output.append("[ ");
-		while (pointer.data != null) {
-			output.append(pointer.toString());
-			pointer = pointer.next;
-			if (pointer != null) {
-				output.append(" , ");
+		if (!isEmpty()) {
+			while (pointer != null) {
+				output.append(pointer.toString());
+				pointer = pointer.next;
+				if (pointer != null) {
+					output.append(" , ");
+				}
 			}
 		}
-		output.append("]");
+		output.append(" ]");
 		return output.toString();
 	}
 }
