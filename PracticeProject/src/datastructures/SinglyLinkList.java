@@ -2,9 +2,11 @@ package datastructures;
 
 import java.util.ArrayList;
 
-public class LinkList {
-	private Node head = null;
-	private Node tail = null;
+//TODO: Update this Node Class to use "Java Generic" instead of the data as a "String" as a result update the Node Class to do the same
+
+public class SinglyLinkList {
+	private SinglyNode head = null;
+	private SinglyNode tail = null;
 	private int size = 0;
 
 	public int getSize() {
@@ -22,9 +24,9 @@ public class LinkList {
 
 	public void addLast(String insertValue) {
 		if (isEmpty()) {
-			head = tail = new Node(insertValue, null);
+			head = tail = new SinglyNode(insertValue, null);
 		} else {
-			tail.next = new Node(insertValue, null);
+			tail.next = new SinglyNode(insertValue, null);
 			tail = tail.next;
 		}
 		size++;
@@ -32,9 +34,9 @@ public class LinkList {
 
 	public void addFront(String insertValue) {
 		if (isEmpty()) {
-			head = tail = new Node(insertValue, null);
+			head = tail = new SinglyNode(insertValue, null);
 		} else {
-			head = new Node(insertValue, head);
+			head = new SinglyNode(insertValue, head);
 		}
 		size++;
 	}
@@ -51,14 +53,14 @@ public class LinkList {
 		} else if (index == size + 1) {
 			addLast(insertValue);
 		} else {
-			Node pointer = head;
+			SinglyNode pointer = head;
 			int count = 1;
 			//To Traverse through the LinkList until it reaches the node before the intended index
 			while (count < index-1) {
 				pointer = pointer.next;
 				count++;
 			}
-			Node tempNode = new Node(insertValue, pointer.next);
+			SinglyNode tempNode = new SinglyNode(insertValue, pointer.next);
 			pointer.next = tempNode;
 			size++;
 		}
@@ -72,7 +74,7 @@ public class LinkList {
 			head.data = null;
 			head = tail = null;
 		} else {
-			Node pointer = head;
+			SinglyNode pointer = head;
 			while (pointer.next != tail) {
 				pointer = pointer.next;
 			}
@@ -91,7 +93,7 @@ public class LinkList {
 			head = tail = null;
 		} else {
 
-			Node pointer = head.next;
+			SinglyNode pointer = head.next;
 			head.data = null;
 			head.next = null;
 			head = pointer;
@@ -109,14 +111,14 @@ public class LinkList {
 		} else if (index == size + 1) {
 			removeLast();
 		} else {
-			Node pointer = head;
+			SinglyNode pointer = head;
 			int count = 1;
 			//To Traverse through the LinkList until it reaches the node before the intended index
 			while (count < index-1) {
 				pointer = pointer.next;
 				count++;
 			}
-			Node tempNode = pointer.next;
+			SinglyNode tempNode = pointer.next;
 			if (pointer.next.next != null) {
 				pointer.next = pointer.next.next;
 			}
@@ -127,9 +129,9 @@ public class LinkList {
 	}
 
 	public void removeAll() {
-		Node pointer = head.next;
+		SinglyNode pointer = head.next;
 		while (pointer != null) {
-			Node temp = pointer;
+			SinglyNode temp = pointer;
 			pointer = pointer.next;
 			temp.data = null;
 			temp.next = null;
@@ -142,27 +144,27 @@ public class LinkList {
 //Case-Sensitive
 	public ArrayList<Integer> indexOf(String searchValue) {
 		ArrayList<Integer> indexes = new ArrayList<Integer>();
-		Node pointer = head.next;
-		int index = 1;
-		while (pointer != null) {
-			if ((pointer.data).equals(searchValue)) {
-				indexes.add(Integer.valueOf(index));
+			SinglyNode pointer = head;
+			int index = 1;
+			while (pointer != null) {
+				if ((pointer.data).equals(searchValue)) {
+					indexes.add(Integer.valueOf(index));
+				}
+				pointer = pointer.next;
+				index++;
 			}
-			pointer = pointer.next;
-			index++;
-		}
 		return indexes;
 	}
 
 	public boolean contains(String containsValue) {
-		return (indexOf(containsValue)).isEmpty();
+		return !(indexOf(containsValue)).isEmpty();
 	}
 
 	public String getValueByIndex(int index) {
 		if (index > getSize()) {
 			throw new IndexOutOfBoundsException("The index value is beyond this LinkList");
 		}
-		Node pointer = head;
+		SinglyNode pointer = head;
 		int count = 1;
 //To Traverse through the LinkList until it reaches the intended index
 		while (count < index) {
@@ -174,7 +176,7 @@ public class LinkList {
 
 	public String toString() {
 		StringBuilder output = new StringBuilder();
-		Node pointer = head;
+		SinglyNode pointer = head;
 		output.append("[ ");
 		if (!isEmpty()) {
 			while (pointer != null) {
