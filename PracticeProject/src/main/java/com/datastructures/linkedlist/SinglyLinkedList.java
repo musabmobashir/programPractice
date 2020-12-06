@@ -1,32 +1,32 @@
-package datastructures;
+package main.java.com.datastructures.linkedlist;
 
 import java.util.ArrayList;
 
-//TODO: Update this LinkList Class to use "Java Generic" instead of the data as a "String" as a result update the Node Class to do the same
+//TODO: Update this LinkedList Class to use "Java Generic" instead of the data as a "String" as a result update the Node Class to do the same
 
-//This is my implementation of a singly LinkList, which uses the custom node class called "SinglyNode" 
-public class SinglyLinkList {
+//This is my implementation of a singly LinkedList, which uses the custom node class called "SinglyNode" 
+public class SinglyLinkedList {
 	private SinglyNode head = null;
 	private SinglyNode tail = null;
 	private int size = 0;
 	
-	//This method returns the Size of the LinkList
+	//This method returns the Size of the LinkedList
 	public int getSize() {
 		return size;
 	}
 	
-	//This method checks to see whether there are any nodes in this LinkList
+	//This method checks to see whether there are any nodes in this LinkedList
 	public boolean isEmpty() {
 		return (getSize() == 0);
 	}
 
 	/* ------ Adding Section -----
-	By default, nodes are added to the end of the LinkList. This is the case when you call add() or addLast()
-	To add to the beginning of the LinkList, use the addFront()
+	By default, nodes are added to the end of the LinkedList. This is the case when you call add() or addLast()
+	To add to the beginning of the LinkedList, use the addFront()
 	To add to a specific index, you can addByIndex(). It is important to note that the index doesn't start at 0, but start from 1	
 	*/
 	
-	//Add a new node to the end of the LinkList
+	//Add a new node to the end of the LinkedList
 	public void add(String insertValue) {
 		addLast(insertValue);
 	}
@@ -41,7 +41,7 @@ public class SinglyLinkList {
 		size++;
 	}
 	
-	//Adding a new Node to the begging of the LinkList
+	//Adding a new Node to the begging of the LinkedList
 	public void addFront(String insertValue) {
 		if (isEmpty()) {
 			head = tail = new SinglyNode(insertValue, null);
@@ -56,7 +56,7 @@ public class SinglyLinkList {
 		if (index >= (getSize() + 2)) {
 			throw new IndexOutOfBoundsException("The index value \""+ index +"\" is invalid");
 		} else if (index < 1) {
-			throw new IndexOutOfBoundsException("The index value \""+ index +"\" is beyond this LinkList");
+			throw new IndexOutOfBoundsException("The index value \""+ index +"\" is beyond this LinkedList");
 		} else if (index == 1) {
 			addFront(insertValue);
 		} else if (index == size + 1) {
@@ -64,7 +64,7 @@ public class SinglyLinkList {
 		} else {
 			SinglyNode pointer = head;
 			int count = 1;
-			//To Traverse through the LinkList until it reaches the node before the intended index
+			//To Traverse through the LinkedList until it reaches the node before the intended index
 			while (count < index-1) {
 				pointer = pointer.next;
 				count++;
@@ -77,10 +77,10 @@ public class SinglyLinkList {
 
 // ------ Deleting Section ------
 	
-	//removing last Node from LinkList
+	//removing last Node from LinkedList
 	public void removeLast() {
 		if (isEmpty()) {
-			throw new RuntimeException("LinkList is already empty");
+			throw new RuntimeException("LinkedList is already empty");
 		} else if (getSize() == 1) {
 			head.data = null;
 			head = tail = null;
@@ -96,10 +96,10 @@ public class SinglyLinkList {
 		size--;
 	}
 	
-	//removing first node from the LinkList
+	//removing first node from the LinkedList
 	public void removeFirst() {
 		if (isEmpty()) {
-			throw new RuntimeException("LinkList is already empty");
+			throw new RuntimeException("LinkedList is already empty");
 		} else if (getSize() == 1) {
 			head.data = null;
 			head = tail = null;
@@ -113,12 +113,12 @@ public class SinglyLinkList {
 		size--;
 	}
 	
-	//Removing a node at a specific idex in the LinkList
+	//Removing a node at a specific idex in the LinkedList
 	public void removeByIndex(int index) {
 		if (index >= (getSize() + 2)) {
-			throw new IndexOutOfBoundsException("The index value is beyond this LinkList");
+			throw new IndexOutOfBoundsException("The index value is beyond this LinkedList");
 		} else if (index < 1) {
-			throw new IndexOutOfBoundsException("The index value \""+ index +"\" is beyond this LinkList");
+			throw new IndexOutOfBoundsException("The index value \""+ index +"\" is beyond this LinkedList");
 		} else if (index == 1) {
 			removeFirst();
 		} else if (index == size + 1) {
@@ -127,7 +127,7 @@ public class SinglyLinkList {
 			SinglyNode pointer = head;
 			int count = 1;
 
-			//To Traverse through the LinkList until it reaches the node before the intended index
+			//To Traverse through the LinkedList until it reaches the node before the intended index
 			while (count < index-1) {
 				pointer = pointer.next;
 				count++;
@@ -142,7 +142,7 @@ public class SinglyLinkList {
 		}
 	}
 	
-	//Clear the LinkList, by removing all the nodes from within the LinkList
+	//Clear the LinkedList, by removing all the nodes from within the LinkedList
 	public void removeAll() {
 		SinglyNode pointer = head.next;
 		while (pointer != null) {
@@ -178,12 +178,12 @@ public class SinglyLinkList {
 
 	public String getValueByIndex(int index) {
 		if (index > getSize()) {
-			throw new IndexOutOfBoundsException("The index value is beyond this LinkList");
+			throw new IndexOutOfBoundsException("The index value is beyond this LinkedList");
 		}
 		SinglyNode pointer = head;
 		int count = 1;
 		
-		//To Traverse through the LinkList until it reaches the intended index
+		//To Traverse through the LinkedList until it reaches the intended index
 		while (count < index) {
 			pointer = pointer.next;
 			count++;

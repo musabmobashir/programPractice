@@ -1,8 +1,8 @@
-package datastructures;
+package main.java.com.datastructures.linkedlist;
 
-//TODO: Update this Node Class to use "Java Generic" instead of the data as a "String" as a result update the LinkList Class to do the same
+//TODO: Update this Node Class to use "Java Generic" instead of the data as a "String" as a result update the LinkedList Class to do the same
 
-//This is my implementation of the Node for a singly LinkList 
+//This is my implementation of the Node for a singly LinkedList 
 public class SinglyNode {
 	
 	protected String data;
