@@ -1,11 +1,11 @@
-package datastructures;
+package main.java.com.datastructures.linkedlist;
 
 public class TestClass {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		SinglyLinkList singlyList1 = new SinglyLinkList();
+		SinglyLinkedList singlyList1 = new SinglyLinkedList();
 		System.out.println("singlyList1 - Size:" + singlyList1.getSize() + " - List: " + singlyList1.toString());
 		singlyList1.add("abc");
 		System.out.println("singlyList1 - Size:" + singlyList1.getSize() + " - List: " + singlyList1.toString());
