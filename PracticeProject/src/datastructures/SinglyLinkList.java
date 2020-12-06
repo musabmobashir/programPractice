@@ -2,22 +2,31 @@ package datastructures;
 
 import java.util.ArrayList;
 
-//TODO: Update this Node Class to use "Java Generic" instead of the data as a "String" as a result update the Node Class to do the same
+//TODO: Update this LinkList Class to use "Java Generic" instead of the data as a "String" as a result update the Node Class to do the same
 
+//This is my implementation of a singly LinkList, which uses the custom node class called "SinglyNode" 
 public class SinglyLinkList {
 	private SinglyNode head = null;
 	private SinglyNode tail = null;
 	private int size = 0;
-
+	
+	//This method returns the Size of the LinkList
 	public int getSize() {
 		return size;
 	}
-
+	
+	//This method checks to see whether there are any nodes in this LinkList
 	public boolean isEmpty() {
 		return (getSize() == 0);
 	}
 
-// ------ Adding Section -----
+	/* ------ Adding Section -----
+	By default, nodes are added to the end of the LinkList. This is the case when you call add() or addLast()
+	To add to the beginning of the LinkList, use the addFront()
+	To add to a specific index, you can addByIndex(). It is important to note that the index doesn't start at 0, but start from 1	
+	*/
+	
+	//Add a new node to the end of the LinkList
 	public void add(String insertValue) {
 		addLast(insertValue);
 	}
@@ -31,7 +40,8 @@ public class SinglyLinkList {
 		}
 		size++;
 	}
-
+	
+	//Adding a new Node to the begging of the LinkList
 	public void addFront(String insertValue) {
 		if (isEmpty()) {
 			head = tail = new SinglyNode(insertValue, null);
@@ -41,8 +51,7 @@ public class SinglyLinkList {
 		size++;
 	}
 
-//Assumption that location of first Node will be at index 1
-//Adding node at indexth position. Therefore index = 1 means at the first location
+	//Adding a new Node at a specific index. It is important to note that the index doesn't start at 0, but starts from 1	
 	public void addByIndex(int index, String insertValue) {
 		if (index >= (getSize() + 2)) {
 			throw new IndexOutOfBoundsException("The index value \""+ index +"\" is invalid");
@@ -67,6 +76,8 @@ public class SinglyLinkList {
 	}
 
 // ------ Deleting Section ------
+	
+	//removing last Node from LinkList
 	public void removeLast() {
 		if (isEmpty()) {
 			throw new RuntimeException("LinkList is already empty");
@@ -84,7 +95,8 @@ public class SinglyLinkList {
 		}
 		size--;
 	}
-
+	
+	//removing first node from the LinkList
 	public void removeFirst() {
 		if (isEmpty()) {
 			throw new RuntimeException("LinkList is already empty");
@@ -100,7 +112,8 @@ public class SinglyLinkList {
 		}
 		size--;
 	}
-
+	
+	//Removing a node at a specific idex in the LinkList
 	public void removeByIndex(int index) {
 		if (index >= (getSize() + 2)) {
 			throw new IndexOutOfBoundsException("The index value is beyond this LinkList");
@@ -113,6 +126,7 @@ public class SinglyLinkList {
 		} else {
 			SinglyNode pointer = head;
 			int count = 1;
+
 			//To Traverse through the LinkList until it reaches the node before the intended index
 			while (count < index-1) {
 				pointer = pointer.next;
@@ -127,7 +141,8 @@ public class SinglyLinkList {
 			size--;
 		}
 	}
-
+	
+	//Clear the LinkList, by removing all the nodes from within the LinkList
 	public void removeAll() {
 		SinglyNode pointer = head.next;
 		while (pointer != null) {
@@ -140,8 +155,9 @@ public class SinglyLinkList {
 		size = 0;
 	}
 
-// ------ Contain and Index of -------
-//Case-Sensitive
+	// ------ Contain and Index of -------
+	
+	//Case-Sensitive
 	public ArrayList<Integer> indexOf(String searchValue) {
 		ArrayList<Integer> indexes = new ArrayList<Integer>();
 			SinglyNode pointer = head;
@@ -166,7 +182,8 @@ public class SinglyLinkList {
 		}
 		SinglyNode pointer = head;
 		int count = 1;
-//To Traverse through the LinkList until it reaches the intended index
+		
+		//To Traverse through the LinkList until it reaches the intended index
 		while (count < index) {
 			pointer = pointer.next;
 			count++;
@@ -177,17 +194,17 @@ public class SinglyLinkList {
 	public String toString() {
 		StringBuilder output = new StringBuilder();
 		SinglyNode pointer = head;
-		output.append("[ ");
+		output.append("[");
 		if (!isEmpty()) {
 			while (pointer != null) {
-				output.append(pointer.toString());
+				output.append(" " + pointer.toString()+" ");
 				pointer = pointer.next;
 				if (pointer != null) {
-					output.append(" , ");
+					output.append(",");
 				}
 			}
 		}
-		output.append(" ]");
+		output.append("]");
 		return output.toString();
 	}
 }
