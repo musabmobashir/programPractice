@@ -177,9 +177,12 @@ public class SinglyLinkedList {
 	}
 
 	public String getValueByIndex(int index) {
-		if (index > getSize()) {
-			throw new IndexOutOfBoundsException("The index value is beyond this LinkedList");
-		}
+		if (isEmpty()) {
+			throw new RuntimeException("LinkedList is Empty");
+		} else if (index > getSize() || index <= 0) {
+			throw new IndexOutOfBoundsException("The index value is not within the range of the LinkedList");
+		} else { }
+		
 		SinglyNode pointer = head;
 		int count = 1;
 		
