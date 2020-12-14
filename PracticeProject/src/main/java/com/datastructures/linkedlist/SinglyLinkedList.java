@@ -1,11 +1,12 @@
 package main.java.com.datastructures.linkedlist;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 //TODO: Update this LinkedList Class to use "Java Generic" instead of the data as a "String" as a result update the Node Class to do the same
 
 //This is my implementation of a singly LinkedList, which uses the custom node class called "SinglyNode" 
-public class SinglyLinkedList {
+public class SinglyLinkedList implements Iterable {
 	private SinglyNode head = null;
 	private SinglyNode tail = null;
 	private int size = 0;
@@ -194,6 +195,42 @@ public class SinglyLinkedList {
 		return pointer.data;
 	}
 
+	//----- Update value of a node
+	
+	public void updateNodeDataByIndex(int index, String value) {
+		if (isEmpty()) {
+			throw new RuntimeException("LinkedList is Empty");
+		} else if (index > getSize() || index <= 0) {
+			throw new IndexOutOfBoundsException("The index value is not within the range of the LinkedList");
+		} else { 
+			SinglyNode pointer = head;
+			int count = 1;
+			
+			//To Traverse through the LinkedList until it reaches the intended index
+			while (count < index) {
+				pointer = pointer.next;
+				count++;
+			}
+			pointer.data = value;
+		}		
+	}
+	
+	public SinglyLinkedList clone() {
+		SinglyLinkedList newList = new SinglyLinkedList();
+		if (size > 0) {
+			SinglyNode pointer = head;
+			while (pointer != null) {
+				newList.add(pointer.data);
+				pointer = pointer.next;
+			}
+		}
+		return newList;
+	}
+	
+	@Override
+	public Iterator<String> iterator() {
+		return new singlyIterator();
+	}
 	public String toString() {
 		StringBuilder output = new StringBuilder();
 		SinglyNode pointer = head;
@@ -209,5 +246,36 @@ public class SinglyLinkedList {
 		}
 		output.append("]");
 		return output.toString();
+	}
+	
+	class singlyIterator implements Iterator<String> {
+		
+		private SinglyNode current = null;
+
+		
+		@Override
+		public boolean hasNext() {
+			// TODO Auto-generated method stub
+			if (current == null && head != null ) {
+				return true;
+			} else if (current.next != null) {
+				return true;
+			}
+			
+			return false;
+		}
+
+		@Override
+		public String next() {
+			if (current == null && head != null ) {
+				current = head;
+				return head.data;
+			} else if (current.next != null) {
+				current = current.next;
+				return current.data;
+			}
+			return null;
+		}
+		
 	}
 }
