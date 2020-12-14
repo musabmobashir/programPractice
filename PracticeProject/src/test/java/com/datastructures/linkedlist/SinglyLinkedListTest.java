@@ -1,9 +1,11 @@
 package test.java.com.datastructures.linkedlist;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.junit.*;
 
@@ -171,6 +173,71 @@ public class SinglyLinkedListTest {
 		indexValues.add(4);
 
 		assertEquals(indexValues,singlyList1.indexOf("abc"));
+	}
+	
+	@Test
+	public void updateIndexValueForLinkedList() {
+		assertTrue(singlyList1.isEmpty());
+		singlyList1.add("abc");
+		singlyList1.add("def");
+		singlyList1.add("jkl");
+		singlyList1.add("abc");
+		singlyList1.updateNodeDataByIndex(4, "mno");
+		assertTrue(singlyList1.contains("mno"));
+		assertEquals("mno", singlyList1.getValueByIndex(4));		
+	}
+	
+	@Test
+	public void cloneLinkedList() {
+		assertTrue(singlyList1.isEmpty());
+		singlyList1.add("abc");
+		singlyList1.add("def");
+		singlyList1.add("jkl");
+		singlyList1.add("abc");
+		
+		SinglyLinkedList newList = singlyList1.clone();	
+		assertEquals(singlyList1.getSize(),newList.getSize());
+		
+		int count = 0;
+		Iterator<String> testItr = newList.iterator();
+		while(testItr.hasNext()) {
+			String itrValue = testItr.next();		
+			count++;
+			assertEquals(itrValue,singlyList1.getValueByIndex(count));
+		}	
+		
+		newList.updateNodeDataByIndex(4, "mno");
+		
+		count = 0;
+		testItr = newList.iterator();
+		while(testItr.hasNext()) {
+			String itrValue = testItr.next();		
+			count++;
+			if (count == 4) {
+				assertNotEquals(itrValue, singlyList1.getValueByIndex(count));
+				assertEquals(itrValue,newList.getValueByIndex(count));
+			} else {
+				assertEquals(itrValue,singlyList1.getValueByIndex(count));
+			}
+		}
+	}
+	
+	@Test
+	public void iteratorForLinkedList() {
+		assertTrue(singlyList1.isEmpty());
+		singlyList1.add("abc");
+		singlyList1.add("def");
+		singlyList1.add("jkl");
+		singlyList1.add("abc");
+			
+		int count = 0;
+		Iterator<String> testItr = singlyList1.iterator();
+		while(testItr.hasNext()) {
+			String itrValue = testItr.next();		
+			count++;
+			assertEquals(itrValue,singlyList1.getValueByIndex(count));
+		}
+		
 	}
 	
 }
