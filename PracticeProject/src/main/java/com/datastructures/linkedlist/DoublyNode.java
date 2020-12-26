@@ -14,7 +14,7 @@ public class DoublyNode {
 	public DoublyNode(String data, DoublyNode prev, DoublyNode next) {
 		this.data = data;
 		this.next = next;
-		this.next = prev;
+		this.prev = prev;
 
 	}
 	
