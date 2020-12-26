@@ -63,11 +63,23 @@ public class DoublyLinkedList implements Iterable {
 			addFront(insertValue);
 		} else if (index == size + 1) {
 			addLast(insertValue);
+		} else if (index > size/2) {
+			//Run this when the index is closer to the tail 
+			DoublyNode pointer = tail;
+			int count = size;
+			//To Traverse through the LinkedList until it reaches the intended node
+			while (count > index) {
+				pointer = pointer.prev;
+				count--;
+			}
+			DoublyNode tempNode = new DoublyNode(insertValue, pointer.prev, pointer);
+			pointer = tempNode;
+			pointer.next.prev = pointer;
+			pointer.prev.next = pointer;
+			size++;
+			
 		} else {
-			/*
-			 * TODO: Add logic to determine if the index value is closer to the head or tail and based on that to determine
-			 * which way traversing the LinkedList will reach the index value faster 
-			*/
+			//Run this when the index is closer to the head
 			DoublyNode pointer = head;
 			int count = 1;
 			//To Traverse through the LinkedList until it reaches the node before the intended index
@@ -128,8 +140,26 @@ public class DoublyLinkedList implements Iterable {
 			removeFirst();
 		} else if (index == size + 1) {
 			removeLast();
+		} else if (index > size/2) {
+			//Run this when the index is closer to the tail 
+			DoublyNode pointer = tail;
+			int count = size;
+
+			//To Traverse through the LinkedList until it reaches the intended node
+			while (count > index) {
+				pointer = pointer.prev;
+				count--;
+			}
+			
+			pointer.prev.next = pointer.next;
+			pointer.next = pointer.prev;
+			
+			pointer.next = null;
+			pointer.prev = null;
+			pointer.data = null;
+			size--;
 		} else {
-			//TODO improve code: based on whichever end the index value is closer to either start from head or from Tail 
+			//Run this when the index is closer to the head 
 			DoublyNode pointer = head;
 			int count = 1;
 
@@ -190,18 +220,29 @@ public class DoublyLinkedList implements Iterable {
 			throw new RuntimeException("LinkedList is Empty");
 		} else if (index > getSize() || index <= 0) {
 			throw new IndexOutOfBoundsException("The index value is not within the range of the LinkedList");
-		} else { }
-		
-		//TODO improve code: based on whichever end the index value is closer to either start from head or from Tail 
-		DoublyNode pointer = head;
-		int count = 1;
-		
-		//To Traverse through the LinkedList until it reaches the intended index
-		while (count < index) {
-			pointer = pointer.next;
-			count++;
+		} else if (index > size/2) {
+			//Run this when the index is closer to the tail
+			DoublyNode pointer = tail;
+			int count = size;
+			
+			//To Traverse through the LinkedList until it reaches the intended index
+			while (count > index) {
+				pointer = pointer.prev;
+				count--;
+			}
+			return pointer.data;
+		} else {
+			//Run this when the index is closer to the head 
+			DoublyNode pointer = head;
+			int count = 1;
+			
+			//To Traverse through the LinkedList until it reaches the intended index
+			while (count < index) {
+				pointer = pointer.next;
+				count++;
+			}
+			return pointer.data;
 		}
-		return pointer.data;
 	}
 
 	//----- Update value of a node
@@ -211,9 +252,21 @@ public class DoublyLinkedList implements Iterable {
 			throw new RuntimeException("LinkedList is Empty");
 		} else if (index > getSize() || index <= 0) {
 			throw new IndexOutOfBoundsException("The index value is not within the range of the LinkedList");
-		} else { 
+		
+		} else if (index > size/2) {
+			//Run this when the index is closer to the tail 
+			DoublyNode pointer = tail;
+			int count = size;
 			
-			//TODO improve code: based on whichever end the index value is closer to either start from head or from tail 
+			//To Traverse through the LinkedList until it reaches the intended index
+			while (count > index) {
+				pointer = pointer.prev;
+				count--;
+			}
+			pointer.data = value;
+		
+		} else { 			
+			//Run this when the index is closer to the head 
 			DoublyNode pointer = head;
 			int count = 1;
 			
@@ -266,7 +319,6 @@ public class DoublyLinkedList implements Iterable {
 		
 		@Override
 		public boolean hasNext() {
-			// TODO Auto-generated method stub
 			if (current == null && head != null ) {
 				return true;
 			} else if (current.next != null) {
