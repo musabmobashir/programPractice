@@ -10,7 +10,6 @@ import java.util.Iterator;
 import org.junit.*;
 
 import main.java.com.datastructures.linkedlist.DoublyLinkedList;
-import main.java.com.datastructures.linkedlist.SinglyLinkedList;
 
 
 public class DoublyLinkedListTest {
@@ -132,7 +131,7 @@ public class DoublyLinkedListTest {
 		doublyList1.removeAll();
 		assertTrue(doublyList1.isEmpty());
 	}
-	
+
 	@Test
 	public void containsNodeForLinkedList() {
 		assertTrue(doublyList1.isEmpty());
@@ -175,7 +174,7 @@ public class DoublyLinkedListTest {
 
 		assertEquals(indexValues,doublyList1.indexOf("abc"));
 	}
-	
+
 	@Test
 	public void updateIndexValueForLinkedList() {
 		assertTrue(doublyList1.isEmpty());
@@ -187,7 +186,7 @@ public class DoublyLinkedListTest {
 		assertTrue(doublyList1.contains("mno"));
 		assertEquals("mno", doublyList1.getValueByIndex(4));		
 	}
-	
+
 	@Test
 	public void cloneLinkedList() {
 		assertTrue(doublyList1.isEmpty());
